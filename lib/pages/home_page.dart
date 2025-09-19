@@ -1,9 +1,29 @@
+import 'package:coffeeappui/pages/util/coffee_tile.dart';
+import 'package:coffeeappui/pages/util/coffee_type.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Add this import for GoogleFonts
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
 
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+ 
+ //list of coffee types
+  final List coffeeType = [
+    ['Cappuccino', true],
+    ['Latte', true],
+    ['Black', true],
+     ['Tea', true],
+  ];
+
+ //user tapped on coffeee types
+ void CoffeeTypeSelected(){
+
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,16 +74,37 @@ class HomePage extends StatelessWidget {
                 ),
                ),
              ),
-        
-
+    
      SizedBox(height: 25),
+
+    Container(
+      height: 50,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+
+        children:[
+        CoffeeType(coffeeType: 'Cappuccino',
+         isSelected: true,
+         onTap: CoffeeTypeSelected,
+         ),
+        CoffeeType(coffeeType: 'Latte', 
+        isSelected: true,
+        onTap: CoffeeTypeSelected,),
+        CoffeeType(coffeeType: 'Black',
+         isSelected: true ,
+         onTap: CoffeeTypeSelected,),
+          
+          SizedBox(width: 25,),],
+      )  
+      
+       ),
 
      Expanded(
       child: ListView(
         scrollDirection: Axis.horizontal,
         
         children: [
-       
+       CoffeeTile(),
           
       ],          
       ),
