@@ -119,7 +119,7 @@ class _CoffeeDetailsPageState extends State<CoffeeDetailsPage> {
                         ],
                       ),
                       Text(
-                        '\$${widget.coffee['price'].toStringAsFixed(2)}',
+                        'R${widget.coffee['price'].toStringAsFixed(2)}',
                         style: GoogleFonts.poppins(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,

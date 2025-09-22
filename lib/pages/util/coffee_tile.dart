@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CoffeeTile extends StatelessWidget {
   final String coffeeImagePath;
@@ -18,32 +19,32 @@ class CoffeeTile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 25.0, bottom: 25),
       child: Container(
         width: 200,
-        height: 240, // ✅ Fixed total height – prevents overflow
+        height: 240,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.black54,
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xFF2A2A2A),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ✅ Image takes half of the height and fits inside
+            // Image takes half of the height
             Expanded(
               flex: 5,
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                 child: Image.asset(
                   coffeeImagePath,
                   width: double.infinity,
-                  fit: BoxFit.cover, // ✅ Fills width & crops to fit
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-
-            // ✅ Text section fits in remaining space
+            
+            // Text section fits in remaining space
             Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +54,7 @@ class CoffeeTile extends StatelessWidget {
                       children: [
                         Text(
                           coffeeName,
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -63,33 +64,37 @@ class CoffeeTile extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           'With Almond Milk',
-                          style: TextStyle(
-                            color: Colors.grey[400],
+                          style: GoogleFonts.poppins(
+                            color: Colors.white60,
                             fontSize: 13,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
-
+                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'R$coffeePrice',
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(6),
+                            color: const Color(0xFFD4A574),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Icon(Icons.add, size: 18, color: Colors.white),
+                          child: const Icon(
+                            Icons.add,
+                            size: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),
@@ -103,4 +108,3 @@ class CoffeeTile extends StatelessWidget {
     );
   }
 }
-//coffee_tile code

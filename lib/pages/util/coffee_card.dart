@@ -98,7 +98,7 @@ class CoffeeCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '\$${coffee['price'].toStringAsFixed(2)}',
+                          'R${coffee['price'].toStringAsFixed(2)}',
                           style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

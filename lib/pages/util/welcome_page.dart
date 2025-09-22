@@ -42,80 +42,85 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF2A1810), Color(0xFFD4A574)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        height: double.infinity,
+        color: const Color(0xFF1A1A1A),
         child: SafeArea(
           child: FadeTransition(
             opacity: _fadeAnimation,
-            child: Column(
-              children: [
-                const Spacer(),
-                // Coffee image
-                Container(
-                  height: 300,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage('lib/images/coffee_splash.jpg'),
-                      fit: BoxFit.cover,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  
+                  // Coffee cup image only
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: const DecorationImage(
+                        image: AssetImage('lib/images/coffee_cup_center.jpg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 50),
-                // Title
-                Text(
-                  'Brewing Perfection:',
-                  style: GoogleFonts.poppins(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                  
+                  const SizedBox(height: 40),
+                  
+                  // Welcome text
+                  Text(
+                    'Welcome to Coffee Shop',
+                    style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Introducing the Ultimate\nCoffee Companion App!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: Colors.white70,
-                    height: 1.5,
+                  
+                  const SizedBox(height: 10),
+                  
+                  Text(
+                    'Get wide range of specialty coffee,\ntea and beverages.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.white70,
+                      height: 1.5,
+                    ),
                   ),
-                ),
-                const Spacer(),
-                // Next button
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: SizedBox(
+                  
+                  const Spacer(),
+                  
+                  // Get Started button
+                  SizedBox(
                     width: double.infinity,
-                    height: 55,
+                    height: 50,
                     child: ElevatedButton(
                       onPressed: goToSignIn,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD4A574),
+                        backgroundColor: const Color(0xFF8B4513),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(25),
                         ),
                         elevation: 0,
                       ),
                       child: Text(
-                        'Next',
+                        'Get Started',
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 50),
-              ],
+                  
+                  const SizedBox(height: 30),
+                ],
+              ),
             ),
           ),
         ),
