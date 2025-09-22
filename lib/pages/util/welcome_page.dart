@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
-import 'sign_in_page.dart';
-import 'package:coffeeappui/pages/util/sign_up_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:coffeeappui/pages/util/sign_in_page.dart';
 
-
-
-
-
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
+
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void goToSignIn() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const SignInPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,47 +44,80 @@ class WelcomePage extends StatelessWidget {
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.brown, Colors.orange],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            colors: [Color(0xFF2A1810), Color(0xFFD4A574)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.coffee, size: 120, color: Colors.white),
-            const SizedBox(height: 20),
-            const Text(
-              "Welcome to Coffee House",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+        child: SafeArea(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Column(
+              children: [
+                const Spacer(),
+                // Coffee image
+                Container(
+                  height: 300,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: const DecorationImage(
+                      image: AssetImage('lib/images/coffee_splash.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                // Title
+                Text(
+                  'Brewing Perfection:',
+                  style: GoogleFonts.poppins(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Introducing the Ultimate\nCoffee Companion App!',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: Colors.white70,
+                    height: 1.5,
+                  ),
+                ),
+                const Spacer(),
+                // Next button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: ElevatedButton(
+                      onPressed: goToSignIn,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4A574),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        'Next',
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+              ],
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const SignInPage()),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.brown,
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-              ),
-              child: const Text("Sign In", style: TextStyle(fontSize: 18)),
-            ),
-            const SizedBox(height: 15),
-            OutlinedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const SignUpPage()),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.white),
-                padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 14),
-              ),
-              child: const Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
-            ),
-          ],
+          ),
         ),
       ),
     );

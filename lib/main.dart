@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:coffeeappui/pages/util/welcome_page.dart';
 
 void main() {
@@ -16,9 +15,15 @@ class MyApp extends StatelessWidget {
       title: 'Coffee App',
       theme: ThemeData(
         brightness: Brightness.dark,
-        primarySwatch: Colors.orange,
+        scaffoldBackgroundColor: const Color(0xFF1A1A1A),
+        primaryColor: const Color(0xFFD4A574),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFFD4A574),
+          secondary: Color(0xFFD4A574),
+          surface: Color(0xFF2A2A2A),
+        ),
       ),
-      home: WelcomePage(),
+      home: const WelcomePage(),
     );
   }
 }

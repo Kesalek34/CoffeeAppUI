@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// ✅ Corrected imports – adjust according to your folder structure
-import 'package:coffeeappui/pages/util/coffee_tile.dart';
-import 'package:coffeeappui/pages/util/coffee_type.dart';
+import 'package:coffeeappui/pages/util/coffee_card.dart';
+import 'package:coffeeappui/pages/util/coffee_details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,124 +11,204 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Coffee categories
-  final List<List<dynamic>> coffeeType = [
-    ['Cappuccino', true],
-    ['Latte', false],
-    ['Black', false],
-    ['Tea', false],
+  final List<String> categories = ['All', 'Espresso', 'Cappuccino', 'Latte', 'Americano'];
+  int selectedCategory = 0;
+
+  final List<Map<String, dynamic>> coffeeList = [
+    {
+      'name': 'Espresso',
+      'price': 6.50,
+      'rating': 4.5,
+      'reviews': 120,
+      'image': 'lib/images/espresso.jpg',
+      'description': 'A strong coffee served in small amounts with a layer of cream on top.',
+    },
+    {
+      'name': 'Cappuccino',
+      'price': 5.80,
+      'rating': 4.8,
+      'reviews': 89,
+      'image': 'lib/images/cappuccino.jpg',
+      'description': 'Coffee drink made with espresso and steamed milk foam.',
+    },
+    {
+      'name': 'Latte',
+      'price': 7.20,
+      'rating': 4.6,
+      'reviews': 156,
+      'image': 'lib/images/latte.jpg',
+      'description': 'Espresso coffee made with steamed milk and milk foam.',
+    },
   ];
-
-  void coffeeTypeSelected(int index) {
-    setState(() {
-      for (int i = 0; i < coffeeType.length; i++) {
-        coffeeType[i][1] = false;
-      }
-      coffeeType[index][1] = true;
-    });
-  }
-
-  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    // Filter coffee list by selected category
+    List<Map<String, dynamic>> filteredCoffeeList = selectedCategory == 0
+        ? coffeeList
+        : coffeeList.where((coffee) =>
+            coffee['name'].toString().toLowerCase() ==
+            categories[selectedCategory].toLowerCase()).toList();
+
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: const Icon(Icons.menu),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: Icon(Icons.person),
-          ),
-        ],
-      ),
-
-      // ✅ Bottom navigation
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) => setState(() => _selectedIndex = index),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.notifications), label: 'Notifications'),
-        ],
-      ),
-
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Heading
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Text(
-              'Find the best coffee for you',
-              style: GoogleFonts.bebasNeue(fontSize: 56),
+      backgroundColor: const Color(0xFF1A1A1A),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2A2A2A),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(Icons.menu, color: Colors.white),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2A2A2A),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(Icons.notifications_outlined, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 25),
 
-          // Search box
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'Find your coffee...',
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade600),
+            // Greeting
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Good Morning',
+                    style: GoogleFonts.poppins(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Grab your favorite coffee before it gets cold',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.white60,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // Search bar
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF2A2A2A),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade600),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search favorite coffee',
+                    hintStyle: GoogleFonts.poppins(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                    prefixIcon: const Icon(Icons.search, color: Colors.white70),
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                  ),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 25),
 
-          // Coffee types
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: coffeeType.length,
-              itemBuilder: (context, index) {
-                return CoffeeType(
-                  coffeeType: coffeeType[index][0],
-                  isSelected: coffeeType[index][1],
-                  onTap: () => coffeeTypeSelected(index),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 25),
+            const SizedBox(height: 30),
 
-          // Coffee tiles
-          Expanded(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                CoffeeTile(
-                  coffeeImagePath: 'lib/images/latte.jpg',
-                  coffeeName: 'Latte',
-                  coffeePrice: '34.00',
-                ),
-                CoffeeTile(
-                  coffeeImagePath: 'lib/images/cappaccino.jpg',
-                  coffeeName: 'Cappuccino',
-                  coffeePrice: '26.50',
-                ),
-                CoffeeTile(
-                  coffeeImagePath: 'lib/images/milk.jpg',
-                  coffeeName: 'Milk Coffee',
-                  coffeePrice: '15.00',
-                ),
-              ],
+            // Categories
+            SizedBox(
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(left: 20),
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  bool isSelected = selectedCategory == index;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = index;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: isSelected ? const Color(0xFFD4A574) : Colors.transparent,
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(
+                          color: isSelected ? const Color(0xFFD4A574) : Colors.white30,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          categories[index],
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: isSelected ? Colors.white : Colors.white60,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+
+            const SizedBox(height: 30),
+
+            // Coffee Grid
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 15,
+                  childAspectRatio: 0.7,
+                ),
+                itemCount: filteredCoffeeList.length,
+                itemBuilder: (context, index) {
+                  final coffee = filteredCoffeeList[index];
+                  return CoffeeCard(
+                    coffee: coffee,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CoffeeDetailsPage(coffee: coffee),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
