@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:coffeeappui/pages/home_page.dart';
+import 'package:coffeeappui/pages/util/sign_in_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -19,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
       context,
       MaterialPageRoute(builder: (_) => const HomePage()),
     );
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -37,74 +38,17 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
-          
           // Dark overlay
           Container(
             width: double.infinity,
             height: double.infinity,
             color: Colors.black.withOpacity(0.5),
           ),
-          
           // Content
           SafeArea(
             child: Column(
               children: [
-                // Top tabs
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Text(
-                                'Sign in',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            decoration: BoxDecoration(
-                              color: Colors.brown.withOpacity(0.8),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Text(
-                              'Sign up',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                
                 const Spacer(),
-                
                 // Form container
                 Container(
                   margin: const EdgeInsets.all(20),
@@ -239,6 +183,28 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      
+                      // Already have an account? Log in
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (_) => const SignInPage()),
+                            );
+                          },
+                          child: Text(
+                            'Already have an account? Log in',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 13,
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
                       
                       const SizedBox(height: 20),
                       
@@ -308,7 +274,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     ],
                   ),
                 ),
-                
                 const SizedBox(height: 20),
               ],
             ),

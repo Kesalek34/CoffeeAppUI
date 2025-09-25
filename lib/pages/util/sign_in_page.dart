@@ -44,84 +44,17 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
           ),
-          
           // Dark overlay
           Container(
             width: double.infinity,
             height: double.infinity,
             color: Colors.black.withOpacity(0.5),
           ),
-          
           // Content
           SafeArea(
             child: Column(
               children: [
-                // Top tabs
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _isSignIn = true;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              decoration: BoxDecoration(
-                                color: _isSignIn ? Colors.brown.withOpacity(0.8) : Colors.transparent,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Text(
-                                'Sign in',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: _isSignIn ? FontWeight.w600 : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => const SignUpPage()),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              decoration: BoxDecoration(
-                                color: !_isSignIn ? Colors.brown.withOpacity(0.8) : Colors.transparent,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Text(
-                                'Sign up',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: !_isSignIn ? FontWeight.w600 : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                
                 const Spacer(),
-                
                 // Form container
                 Container(
                   margin: const EdgeInsets.all(20),
@@ -223,9 +156,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
-                      
                       const SizedBox(height: 15),
-                      
                       // Forgot password
                       Center(
                         child: GestureDetector(
@@ -242,9 +173,28 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
-                      
                       const SizedBox(height: 20),
-                      
+                      // Don't have an account? Sign up
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (_) => const SignUpPage()),
+                            );
+                          },
+                          child: Text(
+                            "Don't have an account? Sign up",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 13,
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
                       // Divider
                       Row(
                         children: [
@@ -272,9 +222,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ],
                       ),
-                      
                       const SizedBox(height: 20),
-                      
                       // Social login buttons
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -311,7 +259,6 @@ class _SignInPageState extends State<SignInPage> {
                     ],
                   ),
                 ),
-                
                 const SizedBox(height: 20),
               ],
             ),
